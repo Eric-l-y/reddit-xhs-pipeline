@@ -1,0 +1,15 @@
+[project]
+name = "reddit-xhs-pipeline"
+version = "0.1.0"
+description = "Reddit 热门帖子 → 小红书草稿 内容管道"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.31",
+    "openai>=1.0.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0",
+    "python-dotenv>=1.0",
+]
+
+[project.scripts]
+reddit-xhs = "src.main:main"

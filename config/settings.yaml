@@ -1,0 +1,40 @@
+# LLM 预设配置（内置，不可修改）
+# 可用预设: deepseek, minimax, xiaomi
+# 自定义: provider 设为 "custom"，手动填写 base_url 和 model
+
+# Reddit 抓取配置
+reddit:
+  subreddits:
+    - name: "LifeProTips"
+      sort: "top"
+      time_filter: "week"
+      limit: 20
+    - name: "YouShouldKnow"
+      sort: "top"
+      time_filter: "week"
+      limit: 20
+    - name: "LifeProTips"
+      sort: "hot"
+      limit: 10
+
+  # 质量过滤
+  min_score: 500
+  min_upvote_ratio: 0.85
+  exclude_nsfw: true
+  exclude_stickied: true
+  min_text_length: 100
+
+# 翻译/LLM 配置
+# 切换 provider 即可切换模型，无需改其他字段
+translation:
+  provider: "custom"
+  base_url: "https://api.iamhc.cn/v1"
+  model: "glm-5.1"
+  api_key_env: "LLM_API_KEY"
+  max_tokens: 4096
+
+# 输出配置
+output:
+  format: "markdown"
+  directory: "data/drafts"
+  include_original: true
