@@ -29,7 +29,7 @@ reddit:
 translation:
   provider: "custom"
   base_url: "https://api.iamhc.cn/v1"
-  model: "glm-5.1"
+  model: "DeepSeek-V4-Flash"
   api_key_env: "LLM_API_KEY"
   max_tokens: 4096
 
