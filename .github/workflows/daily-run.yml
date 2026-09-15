@@ -2,7 +2,7 @@ name: Daily Reddit-XHS Pipeline
 
 on:
   schedule:
-    - cron: '0 0 * * *'   # UTC 0点 = 北京时间早上8点
+    - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
@@ -23,11 +23,9 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        working-directory: reddit
         run: pip install -e .
 
       - name: Run pipeline
-        working-directory: reddit
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: |
@@ -41,6 +39,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add reddit/data/drafts/ reddit/data/seen_posts.json
+          git add data/drafts/ data/seen_posts.json
           git commit -m "Auto-generate drafts $(date +'%Y-%m-%d')" || echo "No changes to commit"
           git push
