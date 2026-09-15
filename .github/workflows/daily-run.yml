@@ -10,6 +10,9 @@ on:
         type: boolean
         default: false
 
+permissions:
+  contents: write   # 允许这个 workflow 提交/推送代码回仓库
+
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
