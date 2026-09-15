@@ -11,7 +11,7 @@ on:
         default: false
 
 permissions:
-  contents: write   # 允许这个 workflow 提交/推送代码回仓库
+  contents: write
 
 jobs:
   run-pipeline:
@@ -39,9 +39,11 @@ jobs:
           fi
 
       - name: Commit new drafts and dedup state
+        if: ${{ inputs.dry_run != true }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          mkdir -p data/drafts
           git add data/drafts/ data/seen_posts.json
-          git commit -m "Auto-generate drafts $(date +'%Y-%m-%d')" || echo "No changes to commit"
+          git diff --cached --quiet || git commit -m "Auto-generate drafts $(date +'%Y-%m-%d')"
           git push
