@@ -1,7 +1,8 @@
 name: Daily Reddit-XHS Pipeline
 
 on:
- 
+  schedule:
+    - cron: '0 9 * * *'   # 每天北京时间 17:00
   workflow_dispatch:
     inputs:
       dry_run:
@@ -15,6 +16,7 @@ permissions:
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
+    timeout-minutes: 30   # 最多运行 30 分钟，防止无限挂起
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -34,7 +36,7 @@ jobs:
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             python -m src.main --dry-run
           else
-            python -m src.main
+            python -m src.main --max-posts 5
           fi
 
       - name: Commit new drafts and dedup state

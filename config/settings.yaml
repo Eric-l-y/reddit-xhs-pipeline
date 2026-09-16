@@ -8,13 +8,10 @@ reddit:
     - name: "LifeProTips"
       sort: "top"
       time_filter: "week"
-      limit: 20
+      limit: 10
     - name: "YouShouldKnow"
       sort: "top"
       time_filter: "week"
-      limit: 20
-    - name: "LifeProTips"
-      sort: "hot"
       limit: 10
 
   # 质量过滤

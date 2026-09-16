@@ -50,7 +50,13 @@ def main():
         "--limit",
         type=int,
         default=None,
-        help="每个 subreddit 最多处理的帖子数（覆盖配置文件）",
+        help="每个 subreddit 最多抓取的帖子数（覆盖配置文件）",
+    )
+    parser.add_argument(
+        "--max-posts",
+        type=int,
+        default=None,
+        help="最多翻译并生成草稿的帖子数（默认无限制）",
     )
     args = parser.parse_args()
 
@@ -124,7 +130,9 @@ def main():
             continue
 
         # 翻译 + 格式化
-        for post in filtered:
+        max_posts = args.max_posts
+        posts_to_translate = filtered if max_posts is None else filtered[:max_posts]
+        for post in posts_to_translate:
             try:
                 translated = translate_post(
                     llm_client,
@@ -146,6 +154,11 @@ def main():
             except Exception as e:
                 logger.error(f"❌ 处理失败 [{post.id}]: {e}")
                 continue
+
+        # 如果已达上限，跳过后续 subreddit
+        if max_posts is not None and total_translated >= max_posts:
+            logger.info(f"已达到翻译上限 ({max_posts})，跳过后续 subreddit")
+            break
 
     # 保存已处理的帖子 ID
     if not args.dry_run:
