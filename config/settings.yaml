@@ -28,7 +28,7 @@ reddit:
 # 切换 provider 即可切换模型，无需改其他字段
 translation:
   provider: "custom"
-  base_url: "https://api.iamhc.cn/v1"
+  base_url: "https://api.hcnsec.cn/"
   model: "DeepSeek-V4-Flash"
   api_key_env: "LLM_API_KEY"
   max_tokens: 4096
