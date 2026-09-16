@@ -96,8 +96,13 @@ def translate_post(
         ],
     )
 
-    print("DEBUG response type:", type(response), "content:", response)
     text = response.choices[0].message.content
+
+    # 检测 API 网关是否返回了错误页面（HTML 而非 JSON）
+    if text.strip().startswith("<"):
+        raise ValueError(
+            f"API 返回了 HTML 页面而非有效响应，可能原因：API Key 无效/过期、请求格式错误、网关服务异常。响应前100字符: {text[:100]}"
+        )
 
     try:
         result = json.loads(text)
