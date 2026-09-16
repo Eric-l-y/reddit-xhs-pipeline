@@ -96,7 +96,8 @@ def translate_post(
         ],
     )
 
-    text = response.choices[0].message.content
+    print(f"DEBUG response type: {type(response)}, content: {response}")
+text = response.choices[0].message.content
 
     try:
         result = json.loads(text)
