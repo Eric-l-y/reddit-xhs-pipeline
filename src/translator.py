@@ -96,8 +96,7 @@ def translate_post(
         ],
     )
 
-    print(f"DEBUG response type: {type(response)}, content:
-    {response}")
+    print("DEBUG response type:", type(response), "content:", response)
     text = response.choices[0].message.content
 
     try:
